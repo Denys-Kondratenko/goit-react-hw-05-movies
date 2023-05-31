@@ -15,13 +15,16 @@ const Movies = () => {
 
   const handleFormSubmit = e => {
     e.preventDefault();
-
-    if (search === '') {
+    if (e.target.elements.search.value === '') {
       alert('Please enter movie name');
       return;
     }
+    const nextParams =
+      e.target.elements.search.value !== ''
+        ? { search: e.target.elements.search.value }
+        : {};
 
-    setSearchParams({ search: e.target.elements.search.value });
+    setSearchParams(nextParams);
     e.target.reset();
   };
 
