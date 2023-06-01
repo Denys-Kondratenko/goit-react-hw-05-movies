@@ -1,6 +1,6 @@
 import { fetchDetailsMovie } from 'API';
 import { Loader } from 'components/Loader/Loader';
-import { Suspense, useCallback, useEffect, useState } from 'react';
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 
 const MovieDetails = () => {
@@ -11,7 +11,7 @@ const MovieDetails = () => {
   const [loader, setLoader] = useState(false);
 
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? '/';
+  const backLinkHref = useRef(location.state?.from ?? '/');
 
   const FetchAPI = useCallback(async () => {
     try {
@@ -46,7 +46,7 @@ const MovieDetails = () => {
 
   return (
     <>
-      <Link to={backLinkHref}>Back to products</Link>
+      <Link to={backLinkHref.current}>Back to products</Link>
 
       {movie !== '' && (
         <div>
